@@ -8,11 +8,10 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->as('admin.')->group(function(){
 
     Route::get('/',function(){
-        return 'Đây là trang Dashboard';
+        return view('admin.dashboard');
     });
-
     Route::prefix('catelogues')->as('catelogues.')->group(function(){
-        Route::get('index',             [CatelogueController::class,'index'])->name('index');
+        Route::get('index.html',             [CatelogueController::class,'index'])->name('index');
         Route::get('create',            [CatelogueController::class,'create'])->name('create');
         Route::post('store',            [CatelogueController::class,'store'])->name('store');
         Route::get('show/{id}',         [CatelogueController::class,'show'])->name('show');
