@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('admin.layout.master')
 @section('title')
     Đây là trang thêm catelogue
 @endsection
