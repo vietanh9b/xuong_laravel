@@ -39,6 +39,7 @@ class CatelogueController extends Controller
      */
     public function store(StoreCatelogueRequest $request)
     {
+        
         $data=$request->except('cover');
         // dd($request->is_active);
         $data['is_active']=($request->is_active=='on'?1:0);
@@ -46,7 +47,7 @@ class CatelogueController extends Controller
             $data['cover']=Storage::put(self::PATH_UPLOAD,$request->file('cover'));
         }
         Catelogue::query()->create($data);
-        // return self::index();
+        return redirect()->route('admin.catelogues.index');
     }
 
     /**

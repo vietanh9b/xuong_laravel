@@ -3,8 +3,6 @@
 use App\Http\Controllers\Admin\CatelogueController;
 use Illuminate\Support\Facades\Route;
 
-
-
 Route::prefix('admin')->as('admin.')->group(function(){
 
     Route::get('/',function(){
@@ -22,5 +20,8 @@ Route::prefix('admin')->as('admin.')->group(function(){
         Route::get('trash',[CatelogueController::class,'trash'])->name('trash');
         Route::delete('{id}/force-delete',[CatelogueController::class,'forceDelete'])->name('force-delete');
         Route::get('{id}/restore',[CatelogueController::class,'restore'])->name('restore');
+    });
+    Route::prefix('products')->as('products.')->group(function(){
+
     });
 });
