@@ -26,16 +26,14 @@
 <div class="card">
     <div class="card-header">
         <div class="row">
-            <div class="col-md-6">
-                <button class="btn btn-primary"><a href="{{route('admin.catelogues.create')}}" class="text-light text-decoration-none">Add catelogue</a></button>
-            </div>
-            <div class="col-md-6 d-flex justify-content-end">
-                <button class="btn btn-warning"><a href="{{route('admin.catelogues.trash')}}">List trash</a></button>
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Detail Catelogue</h5>
+                <button class="btn btn-success"><a class=" text-light" href="{{route('admin.catelogues.index')}}">Back</a></button>
             </div>
         </div>
     </div>
     <div class="card-body">
-        <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
+        <table class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
             <thead>
                 <tr>
                     <th scope="col" style="width: 10px;">
@@ -43,47 +41,61 @@
                             <input class="form-check-input fs-15" type="checkbox" id="checkAll" value="option">
                         </div>
                     </th>
-                    <th>ID</th>
                     <th>Name</th>
-                    <th>Image</th>
-                    <th>Is_active</th>
-                    <th>Created at</th>
-                    <th>Updated at</th>
-                    <th>Action</th>
-                
+                    <th>Detail</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data as $item)
                 <tr scope="row">
-                    <th scope="row">
+                    <td scope="col" style="width: 10px;">
                         <div class="form-check">
-                            <input class="form-check-input fs-15" type="checkbox" name="checkAll" value="option1">
+                            <input class="form-check-input fs-15" type="checkbox" id="checkAll" value="option">
                         </div>
-                    </th>
-                    <td>{{$item->id}}</td>
-                    <td>{{$item->name}}</td>
-                    <td>
-                        <img src="{{asset(Storage::url($item->cover))}}" alt="" width="50px">
                     </td>
-                    <td>{!!$item->is_active
-                            ?'<div class="badge bg-success">Yes</div>'
-                            :'<div class="badge bg-danger">No</div>'
-                    !!}</td>
-                    <td>{{date('Y-m-d',strtotime($item->updated_at))}}</td>
-                    <td>{{date('Y-m-d',strtotime($item->created_at))}}</td>
-                    
+                    <td>Name</td>
+                    <td>{{$data->name}}</td>
+                </tr>
+                <tr scope="row">
+                    <td scope="col" style="width: 10px;">
+                        <div class="form-check">
+                            <input class="form-check-input fs-15" type="checkbox" id="checkAll" value="option">
+                        </div>
+                    </td>
+                    <td>Image</td>
                     <td>
-                        <button class="btn btn-info"><a class=" text-light" href="{{route('admin.catelogues.edit',$item->id)}}">Edit</a></button>
-                        <form action="{{route('admin.catelogues.destroy',$item->id)}}" method="POST">
-                            @csrf
-                            @method('delete')
-                            <button class="btn btn-danger text-light">Delete</button>
-                        </form>
-                        <button class="btn btn-success"><a class=" text-light" href="{{route('admin.catelogues.show',$item->id)}}">Show</a></button>
+                        <img src="{{asset(Storage::url($data->cover))}}" alt="" width="50px">
                     </td>
                 </tr>
-                @endforeach
+                <tr  scope="row">
+                    <td scope="col" style="width: 10px;">
+                        <div class="form-check">
+                            <input class="form-check-input fs-15" type="checkbox" id="checkAll" value="option">
+                        </div>
+                    </td>
+                    <td>Is active</td>
+                    <td>{!!$data->is_active
+                        ?'<div class="badge bg-success">Yes</div>'
+                        :'<div class="badge bg-danger">No</div>'
+                !!}</td>
+                </tr>
+                <tr scope="row">
+                    <td scope="col" style="width: 10px;">
+                        <div class="form-check">
+                            <input class="form-check-input fs-15" type="checkbox" id="checkAll" value="option">
+                        </div>
+                    </td>
+                    <td>Updated at</td>
+                    <td>{{date('Y-m-d',strtotime($data->updated_at))}}</td>
+                </tr>
+                <tr  scope="row">
+                    <td scope="col" style="width: 10px;">
+                        <div class="form-check">
+                            <input class="form-check-input fs-15" type="checkbox" id="checkAll" value="option">
+                        </div>
+                    </td>
+                    <td>Created at</td>
+                    <td>{{date('Y-m-d',strtotime($data->created_at))}}</td>
+                </tr>
             </tbody>
         </table>
 </div>

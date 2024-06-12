@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreCatelogueRequest;
 use Illuminate\Support\Facades\Storage;
 
+use function Ramsey\Uuid\v1;
+
 class CatelogueController extends Controller
 {
     /**
@@ -52,8 +54,9 @@ class CatelogueController extends Controller
      */
     public function show(string $id)
     {
-        $model=Catelogue::query()->findOrFail($id);
-        return view(self::PATH_VIEW.__FUNCTION__,compact('model'));
+        $data=Catelogue::query()->findOrFail($id);
+        // dd($catelogue);
+        return view(self::PATH_VIEW.__FUNCTION__,compact('data'));
     }
 
     /**
@@ -91,6 +94,23 @@ class CatelogueController extends Controller
      */
     public function destroy(string $id)
     {
-        return view(self::PATH_VIEW.__FUNCTION__);
+        $model=Catelogue::query()->findOrFail($id);
+        $model->delete();
+        return redirect()->route('admin.catelogues.index');
+    }
+    public function trash(){
+        $datas=Catelogue::onlyTrashed()->get();
+        // dd($datas)->toArray();
+        return view(self::PATH_VIEW.__FUNCTION__,compact('datas'));
+    }
+    public function forceDelete($id){
+        $catelogue=Catelogue::onlyTrashed()->findOrFail($id);
+        $catelogue->forceDelete();
+        return redirect()->route('admin.catelogues.trash');
+    }
+    public function restore($id){
+        $catelogue=Catelogue::onlyTrashed()->findOrFail($id);
+        $catelogue->restore();
+        return redirect()->route('admin.catelogues.index');
     }
 }

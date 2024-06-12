@@ -30,7 +30,7 @@
                 <button class="btn btn-primary"><a href="{{route('admin.catelogues.create')}}" class="text-light text-decoration-none">Add catelogue</a></button>
             </div>
             <div class="col-md-6 d-flex justify-content-end">
-                <button class="btn btn-warning"><a href="{{route('admin.catelogues.trash')}}">List trash</a></button>
+                <button class="btn btn-warning"><a href="{{route('admin.catelogues.index')}}">List Catelogues</a></button>
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data as $item)
+                @foreach ($datas as $item)
                 <tr scope="row">
                     <th scope="row">
                         <div class="form-check">
@@ -74,13 +74,12 @@
                     <td>{{date('Y-m-d',strtotime($item->created_at))}}</td>
                     
                     <td>
-                        <button class="btn btn-info"><a class=" text-light" href="{{route('admin.catelogues.edit',$item->id)}}">Edit</a></button>
-                        <form action="{{route('admin.catelogues.destroy',$item->id)}}" method="POST">
+                        <button class="btn btn-success"><a class=" text-light" href="{{route('admin.catelogues.restore',$item->id)}}">Restore</a></button>
+                        <form action="{{route('admin.catelogues.force-delete',$item->id)}}" method="POST">
                             @csrf
                             @method('delete')
-                            <button class="btn btn-danger text-light">Delete</button>
+                            <button class="btn btn-danger text-light">Force delete</button>
                         </form>
-                        <button class="btn btn-success"><a class=" text-light" href="{{route('admin.catelogues.show',$item->id)}}">Show</a></button>
                     </td>
                 </tr>
                 @endforeach
