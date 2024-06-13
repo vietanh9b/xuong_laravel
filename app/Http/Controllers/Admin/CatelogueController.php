@@ -35,7 +35,7 @@ class CatelogueController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storage.s
      */
     public function store(StoreCatelogueRequest $request)
     {
