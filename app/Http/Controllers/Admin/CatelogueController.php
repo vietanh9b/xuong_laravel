@@ -99,6 +99,7 @@ class CatelogueController extends Controller
         $model->delete();
         return redirect()->route('admin.catelogues.index');
     }
+    // view
     public function trash(){
         $datas=Catelogue::onlyTrashed()->get();
         // dd($datas)->toArray();

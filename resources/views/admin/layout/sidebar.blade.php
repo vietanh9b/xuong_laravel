@@ -44,7 +44,7 @@
                                 <a href="{{route('admin.catelogues.index')}}" class="nav-link"> Catelogues </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('admin.catelogues.index')}}" class="nav-link" data-key="t-products">Products</a>
+                                <a href="{{route('admin.products.index')}}" class="nav-link" data-key="t-products">Products</a>
                             </li>
                         </ul>
                     </div>

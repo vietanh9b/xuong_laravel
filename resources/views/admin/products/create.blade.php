@@ -1,0 +1,101 @@
+@extends('admin.layout.master')
+@section('title')
+    Đây là trang thêm product
+@endsection
+@section('content')
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Thêm product</h4>                    
+            </div>
+            <div class="col-md-6 d-flex justify-content-end">
+                <button class="btn btn-success">Trash</button>
+                <button class="btn btn-warning"><a href="{{route('admin.products.index')}}">Back</a></button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <form action="{{route('admin.products.store')}}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="" class="form-label">Name</label>
+                        <input type="text" name="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="form-label">Sku</label>
+                        <input type="text" name="sku" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="form-label">Catelogue</label>
+                        <select class="form-select mb-3" aria-label="Default select example" name="catelogue">
+                            @foreach ($catelogues as $catelogue)
+                                <option value="2">{{$catelogue->name}}</option>
+                            @endforeach
+                            {{-- <option selected value="1">One</option>
+                            <option value="2">Two</option>  
+                            <option value="3">Three</option> --}}
+                        </select>
+                    </div>
+                    
+                    {{-- price --}}
+                    <div class="form-group">
+                        <label for="" class="form-label">Price regular</label>
+                        <input type="text" name="price_regular" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="form-label">Price sale</label>
+                        <input type="text" name="price_sale" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="form-label">Image</label>
+                        <input type="file" name="cover" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-check form-switch form-switch-custom form-switch-primary">
+                                <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck9" name="is_active" checked>
+                                <label class="form-check-label" for="SwitchCheck9">Is active</label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-check form-switch form-switch-custom form-switch-secondary">
+                                <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck10"  name="is_hot_deal"  checked>
+                                <label class="form-check-label" for="SwitchCheck10">Is hot deal</label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-check form-switch form-switch-custom form-switch-success">
+                                <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck11" name="is_good_deal"  checked>
+                                <label class="form-check-label" for="SwitchCheck11">Is good deal</label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-check form-switch form-switch-custom form-switch-warning">
+                                <input class="form-check-input" type="checkbox" role="switch" id="SwitchCheck12"  name="is_show_home" checked>
+                                <label class="form-check-label" for="SwitchCheck12">Is show home</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-floating mt-2">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 200px"></textarea>
+                        <label for="floatingTextarea2">Description</label>
+                    </div>
+
+                    <div class="card mt-3">
+                        <textarea name="text" class="ckeditor-classic"></textarea>
+                    </div>
+                </div>
+            <button type="submit" class="mt-4 btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+@endsection
+@section('script-libs')
+    <script src="{{asset('themes/admin/assets/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js')}}"></script>
+    <script src="{{asset('themes/admin/assets/js/pages/form-editor.init.js')}}"></script>
+@endsection

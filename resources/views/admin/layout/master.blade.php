@@ -109,5 +109,4 @@
     {{-- custom script --}}
     @yield('script')
 </body>
-
 </html>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CatelogueController;
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->as('admin.')->group(function(){
@@ -21,7 +22,5 @@ Route::prefix('admin')->as('admin.')->group(function(){
         Route::delete('{id}/force-delete',[CatelogueController::class,'forceDelete'])->name('force-delete');
         Route::get('{id}/restore',[CatelogueController::class,'restore'])->name('restore');
     });
-    Route::prefix('products')->as('products.')->group(function(){
-
-    });
+    Route::resource('products',ProductController::class);
 });

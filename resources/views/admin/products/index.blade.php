@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 @section('title')
-    This page is list catelogues
+    This page is list products
 @endsection
 @section('content')
 
@@ -8,15 +8,14 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">Datatables</h4>
+            <h4 class="mb-sm-0">Products</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                    <li class="breadcrumb-item active">Datatables</li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Products</li>
                 </ol>
             </div>
-
         </div>
     </div>
 </div>
@@ -27,7 +26,7 @@
     <div class="card-header">
         <div class="row">
             <div class="col-md-6">
-                <button class="btn btn-primary"><a href="{{route('admin.catelogues.create')}}" class="text-light text-decoration-none">Add catelogue</a></button>
+                <button class="btn btn-primary"><a href="{{route('admin.products.create')}}" class="text-light text-decoration-none">Add products</a></button>
             </div>
             <div class="col-md-6 d-flex justify-content-end">
                 <button class="btn btn-warning"><a href="{{route('admin.catelogues.trash')}}">List trash</a></button>
@@ -45,12 +44,15 @@
                     </th>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Catelogue</th>
                     <th>Image</th>
-                    <th>Is_active</th>
-                    <th>Created at</th>
-                    <th>Updated at</th>
+                    <th>Price</th>
+                    <th>Price sale</th>
+                    <th>Views</th>
+                    <th>Is active</th>
+                    <th>Is hot deal</th>
+                    <th>Is good deal</th>
                     <th>Action</th>
-                
                 </tr>
             </thead>
             <tbody>
@@ -62,25 +64,42 @@
                         </div>
                     </th>
                     <td>{{$item->id}}</td>
-                    <td>{{$item->name}}</td>
+                    <td>{{substr($item->name,0,16)}}</td>
+                    <td>{{$item->Catelogue->name}}</td>
                     <td>
-                        <img src="{{asset(Storage::url($item->cover))}}" alt="" width="50px">
+                        <img src="{{$item->img_thumbnail}}" alt="" width="100px">
                     </td>
-                    <td>{!!$item->is_active
-                            ?'<div class="badge bg-success">Yes</div>'
-                            :'<div class="badge bg-danger">No</div>'
-                    !!}</td>
-                    <td>{{date('Y-m-d',strtotime($item->updated_at))}}</td>
-                    <td>{{date('Y-m-d',strtotime($item->created_at))}}</td>
-                    
+                    <td>{{$item->price_regular}}đ</td>
+                    <td>{{$item->price_sale}}đ</td>
+                    <td>{{$item->views}}</td>
                     <td>
-                        <button class="btn btn-info"><a class=" text-light" href="{{route('admin.catelogues.edit',$item->id)}}">Edit</a></button>
-                        <form action="{{route('admin.catelogues.destroy',$item->id)}}" method="POST">
+                        @if ($item->is_active)
+                            <div class="badge bg-success">Active</div>
+                        @endif
+                    </td>
+                    <td>
+                        @if ($item->is_hot_deal)
+                            <div class="badge bg-success">Hot deal</div>
+                        @else
+                            <div class="badge bg-danger">No hot deal</div>
+                        @endif
+                    </td>
+                    <td>
+                        @if ($item->is_good_deal)
+                            <div class="badge bg-success">Good deal</div>
+                        @else
+                            <div class="badge bg-danger">No good deal</div>
+                        @endif
+                    </td>
+                    
+                    <td class="w-100">
+                        <button class="btn btn-info inline-block"><a class=" text-light" href="{{route('admin.catelogues.edit',$item->id)}}">Edit</a></button>
+                        <form action="{{route('admin.catelogues.destroy',$item->id)}}" method="POST" class="inline-block">
                             @csrf
                             @method('delete')
-                            <button class="btn btn-danger text-light">Delete</button>
+                            <button class="btn btn-danger inline-block text-light">Delete</button>
                         </form>
-                        <button class="btn btn-success"><a class=" text-light" href="{{route('admin.catelogues.show',$item->id)}}">Show</a></button>
+                        <button class="btn btn-success inline-block"><a class=" text-light" href="{{route('admin.catelogues.show',$item->id)}}">Show</a></button>
                     </td>
                 </tr>
                 @endforeach
