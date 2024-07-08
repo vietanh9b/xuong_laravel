@@ -23,10 +23,10 @@
     <!-- custom Css-->
     <link href="{{asset('themes/admin/assets/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
     {{-- custom style --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @yield('style-libs')
 
 </head>
-
 <body>
 
     <!-- Begin page -->

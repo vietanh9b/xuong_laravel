@@ -44,7 +44,22 @@
                                 <a href="{{route('admin.catelogues.index')}}" class="nav-link"> Catelogues </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('admin.products.index')}}" class="nav-link" data-key="t-products">Products</a>
+                                <a href="#sidebarProduct" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProduct" data-key="t-product">
+                                    <span data-key="t-products">Products</span>
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarProduct">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{route('admin.products.index')}}" class="nav-link" data-key="t-product"> List product</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('admin.products.create')}}" class="nav-link" data-key="t-product"> Add Product </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('admin.products.create')}}" class="nav-link" data-key="t-product">List Soft Delete Product</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
                         </ul>
                     </div>

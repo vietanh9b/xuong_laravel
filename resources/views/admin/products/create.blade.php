@@ -1,22 +1,39 @@
 @extends('admin.layout.master')
 @section('title')
-    Đây là trang thêm product
+    This page is add product
 @endsection
 @section('content')
 <div class="card">
     <div class="card-header">
         <div class="row">
             <div class="col-md-6">
-                <h4>Thêm product</h4>                    
+                <h4>Add product</h4>                    
             </div>
             <div class="col-md-6 d-flex justify-content-end">
                 <button class="btn btn-success">Trash</button>
                 <button class="btn btn-warning"><a href="{{route('admin.products.index')}}">Back</a></button>
             </div>
         </div>
+        @if(Session::has('success'))
+            <div class="alert alert-success">
+                {{ Session::get('success') }}
+                @php
+                    Session::forget('success');
+                @endphp
+            </div>
+            @endif
     </div>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <div class="card-body">
-        <form action="{{route('admin.products.store')}}" method="post" enctype="multipart/form-data">
+        <form id="productForm" action="{{route('admin.products.store')}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-4">
@@ -90,6 +107,29 @@
                         <textarea name="text" class="ckeditor-classic"></textarea>
                     </div>
                 </div>
+                <div id="variants">
+                    <h3>Variants:</h3>
+                    <button type="button" id="addVariant" class="w-25">Add Variant</button>
+                    <div class="variant">
+                        <label for="color">Color:</label>
+                        <select name="colors[]">
+                            @foreach($colors as $color)
+                                <option value="{{ $color->id }}" style="color: {{ $color->name }}">{{ $color->name }}</option>
+                            @endforeach
+                        </select>
+        
+                        <label for="size">Size:</label>
+                        <select name="sizes[]">
+                            @foreach($sizes as $size)
+                                <option value="{{ $size->id }}">{{ $size->name }}</option>
+                            @endforeach
+                        </select>
+                        <label>
+                            Image variant
+                        </label>
+                        <input type="file" name="image_variant[]" id="">  
+                    </div>
+                </div>
             <button type="submit" class="mt-4 btn btn-primary">Submit</button>
         </form>
     </div>
@@ -99,3 +139,56 @@
     <script src="{{asset('themes/admin/assets/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js')}}"></script>
     <script src="{{asset('themes/admin/assets/js/pages/form-editor.init.js')}}"></script>
 @endsection
+@section('script')
+<script>
+    $(document).ready(function() {
+        $('#addVariant').click(function() {
+            var variantHtml = `
+                <div class="variant">
+                    <label for="color">Color:</label>
+                    <select name="colors[]">
+                        @foreach($colors as $color)
+                            <option value="{{ $color->id }}">{{ $color->name }}</option>
+                        @endforeach
+                    </select>
+    
+                    <label for="size">Size:</label>
+                    <select name="sizes[]">
+                        @foreach($sizes as $size)
+                            <option value="{{ $size->id }}">{{ $size->name }}</option>
+                        @endforeach
+                    </select>
+                    <label>
+                    Image variant
+                    </label>
+                    <input type="file" name="image_variant" id="">  
+                </div>`;
+            $('#variants').append(variantHtml);
+        });
+    
+
+    });
+
+</script>
+@endsection
+{{-- $('#productForm').submit(function(e) {
+    e.preventDefault();
+
+    var formData = $(this).serialize();
+
+    $.ajax({
+        url: '{{ route("admin.products.store") }}',
+        method: 'POST',
+        data: formData,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            alert('Product saved successfully!');
+            location.reload();
+        },
+        error: function(response) {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}); --}}
