@@ -9,6 +9,7 @@ use App\Models\ProductColor;
 use App\Models\ProductSize;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -46,7 +47,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-        // dd($request);
+        // dd($request->cover);
         $request->validate([
             'name' => 'required',
             'sku' => 'required',
@@ -56,10 +57,11 @@ class ProductController extends Controller
             'sizes'=>'required',
             'color'=>'required'
         ]);
-        $data=$request;
+        $data=$request->except('cover');
         $sizes=$request->sizes;
         $colors=$request->colors;
         $n=1;
+        return 1;
         $error=0;
         for($i=0;$i<count($sizes);$i++){
             for($x=$n;$x<count($colors);$x++){
@@ -72,10 +74,11 @@ class ProductController extends Controller
             $n++;
         }
         if(!$error){
-            Product::create($data);
-            return 1;
+            $test=Product::query()->create($data);
+            if($test) return 1;
+            return redirect()->route('admin.products.create');
         }
-        return redirect()->route('admin.products.create');
+        return view(self::PATH_VIEW.'create');
     }
 
     /**

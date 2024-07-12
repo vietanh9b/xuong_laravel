@@ -3,6 +3,7 @@
     This page is add product
 @endsection
 @section('content')
+
 <div class="card">
     <div class="card-header">
         <div class="row">
@@ -11,7 +12,7 @@
             </div>
             <div class="col-md-6 d-flex justify-content-end">
                 <button class="btn btn-success">Trash</button>
-                <button class="btn btn-warning"><a href="{{route('admin.products.index')}}">Back</a></button>
+                <button class="ms-2 btn btn-warning"><a href="{{route('admin.products.index')}}">Back</a></button>
             </div>
         </div>
         @if(Session::has('success'))
@@ -32,6 +33,11 @@
         </ul>
     </div>
     @endif
+
+    @isset($loi)
+    {{$loi}}
+    @endisset
+
     <div class="card-body">
         <form id="productForm" action="{{route('admin.products.store')}}" method="post" enctype="multipart/form-data">
             @csrf
@@ -148,7 +154,7 @@
                     <label for="color">Color:</label>
                     <select name="colors[]">
                         @foreach($colors as $color)
-                            <option value="{{ $color->id }}">{{ $color->name }}</option>
+                            <option value="{{ $color->id }}" style="color: {{ $color->name }}">{{ $color->name }}</option>
                         @endforeach
                     </select>
     
