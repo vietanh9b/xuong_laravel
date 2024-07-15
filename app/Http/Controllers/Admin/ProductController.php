@@ -47,7 +47,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-        // dd($request->cover);
+        dd($request->cover);
+        echo 1;
         $request->validate([
             'name' => 'required',
             'sku' => 'required',
@@ -74,11 +75,10 @@ class ProductController extends Controller
             $n++;
         }
         if(!$error){
-            $test=Product::query()->create($data);
-            if($test) return 1;
+            // $test=Product::query()->create($data);
             return redirect()->route('admin.products.create');
         }
-        return view(self::PATH_VIEW.'create');
+        return redirect()->route('admin.products.create');
     }
 
     /**

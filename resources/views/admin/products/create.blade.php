@@ -15,14 +15,14 @@
                 <button class="ms-2 btn btn-warning"><a href="{{route('admin.products.index')}}">Back</a></button>
             </div>
         </div>
-        @if(Session::has('success'))
+        {{-- @if(Session::has('success'))
             <div class="alert alert-success">
                 {{ Session::get('success') }}
                 @php
                     Session::forget('success');
                 @endphp
             </div>
-            @endif
+            @endif --}}
     </div>
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -34,9 +34,6 @@
     </div>
     @endif
 
-    @isset($loi)
-    {{$loi}}
-    @endisset
 
     <div class="card-body">
         <form id="productForm" action="{{route('admin.products.store')}}" method="post" enctype="multipart/form-data">
