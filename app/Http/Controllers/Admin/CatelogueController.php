@@ -33,13 +33,11 @@ class CatelogueController extends Controller
     {
         return view(self::PATH_VIEW.__FUNCTION__);
     }
-
     /**
      * Store a newly created resource in storage.s
      */
     public function store(StoreCatelogueRequest $request)
     {
-        
         $data=$request->except('cover');
         // dd($request->is_active);
         $data['is_active']=($request->is_active=='on'?1:0);

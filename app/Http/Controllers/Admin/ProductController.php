@@ -47,7 +47,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-        dd($request->cover);
+        dd($request);
         echo 1;
         $request->validate([
             'name' => 'required',

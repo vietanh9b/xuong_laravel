@@ -49,7 +49,7 @@
 
                 <li class="nav-item">
                     <a href="#sidebarProduct" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProduct" data-key="t-product">
-                        <span data-key="t-products">Products</span>
+                        <i class="lab la-product-hunt"></i><span data-key="t-products">Products</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarProduct">
                         <ul class="nav nav-sm flex-column">
@@ -68,18 +68,18 @@
                 </li> <!-- end Dashboard Menu -->
                 <li class="nav-item">
                     <a href="#sidebarCatelogue" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCatelogue" data-key="t-catelogue">
-                        <span data-key="t-catelogue">Catelogues</span>
+                        <i class="lab la-quinscape"></i><span data-key="t-catelogue">Catelogues</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarCatelogue">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('admin.products.index')}}" class="nav-link" data-key="t-catelogue"> List Catelogues</a>
+                                <a href="{{route('admin.catelogues.index')}}" class="nav-link" data-key="t-catelogue"> List Catelogues</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('admin.products.create')}}" class="nav-link" data-key="t-catelogue"> Add Catelogue </a>
+                                <a href="{{route('admin.catelogues.create')}}" class="nav-link" data-key="t-catelogue"> Add Catelogue </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('admin.products.create')}}" class="nav-link" data-key="t-catelogue">List Soft Delete Catelogues</a>
+                                <a href="{{route('admin.catelogues.trash')}}" class="nav-link" data-key="t-catelogue">List Soft Delete Catelogues</a>
                             </li>
                         </ul>
                     </div>
