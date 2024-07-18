@@ -3,11 +3,12 @@
     Đây là trang thêm catelogue
 @endsection
 @section('content')
+
 <div class="card mt-5">
     <div class="card-header">
         <div class="row">
             <div class="col-md-6">
-                <h4>Thêm catelogue</h4>                    
+                <h4>Thêm catelogue</h4>                  
             </div>
             <div class="col-md-6 d-flex justify-content-end">
                 <button class="btn btn-success">Trash</button>
@@ -16,6 +17,7 @@
         </div>
     </div>
     <div class="card-body">
+
         <form action="{{route('admin.catelogues.store')}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">

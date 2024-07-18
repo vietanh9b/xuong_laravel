@@ -34,7 +34,6 @@
     </div>
     @endif
 
-
     <div class="card-body">
         <form id="productForm" action="{{route('admin.products.store')}}" method="post" enctype="multipart/form-data">
             @csrf

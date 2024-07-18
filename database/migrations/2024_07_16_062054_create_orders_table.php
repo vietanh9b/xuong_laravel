@@ -40,6 +40,8 @@ return new class extends Migration
 
             $table->double('total_price', 15, 2);
 
+            // $table->foreignIdFor('coupon_id');  
+
             $table->timestamps();
         });
     }

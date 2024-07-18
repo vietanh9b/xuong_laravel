@@ -47,35 +47,34 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-        dd($request);
-        echo 1;
-        $request->validate([
-            'name' => 'required',
-            'sku' => 'required',
-            'catelogue' => 'required',
-            'price_regular' => 'required',
-            'price_sale' => 'required',
-            'sizes'=>'required',
-            'color'=>'required'
-        ]);
+        // dd($request);
+        // echo 1;
+        // $data=$request->validate([
+        //     'name' => 'required',
+        //     'sku' => 'required',
+        //     'catelogue' => 'required',
+        //     'price_regular' => 'required',
+        //     'price_sale' => 'required',
+        //     'sizes'=>'required',
+        //     'color'=>'required'
+        // ]);
         $data=$request->except('cover');
         $sizes=$request->sizes;
         $colors=$request->colors;
         $n=1;
-        return 1;
-        $error=0;
+        $error_test=0;
         for($i=0;$i<count($sizes);$i++){
             for($x=$n;$x<count($colors);$x++){
                 $value1=[$sizes[$i],$colors[$i]];
                 $value2=[$sizes[$x],$colors[$x]];
                 if($value1==$value2){
-                    $error=1;
+                    $error_test=1;
                 }
             }
             $n++;
         }
-        if(!$error){
-            // $test=Product::query()->create($data);
+        if(!$error_test){
+            $test=Product::query()->create($data);
             return redirect()->route('admin.products.create');
         }
         return redirect()->route('admin.products.create');
