@@ -13,6 +13,7 @@ class ProductController extends Controller
     public function index(){
         $catelogues=Catelogue::query()->get();
         // dd($catelogues);
+        // file_get_contents();
         return view('client.index',compact('catelogues'));
     }
 }

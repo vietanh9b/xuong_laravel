@@ -7,8 +7,7 @@ use App\Models\Catelogue;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCatelogueRequest;
 use Illuminate\Support\Facades\Storage;
-
-use function Ramsey\Uuid\v1;
+use Illuminate\Validation\ValidationException;
 
 class CatelogueController extends Controller
 {
@@ -38,15 +37,32 @@ class CatelogueController extends Controller
      */
     public function store(StoreCatelogueRequest $request)
     {
-        $data=$request->except('cover');
-        // dd($request->is_active);
-        $data['is_active']=($request->is_active=='on'?1:0);
-        if($request->hasFile('cover')){
-            $data['cover']=Storage::put(self::PATH_UPLOAD,$request->file('cover'));
+        $request->validate([
+            'name' => 'required|max:255',
+            'cover' => ['required','image','mimes:jpeg,png,jpg,gif','max:2048'],
+        ], [
+            'cover.required'=> 'Tệp là bắt buộc',
+            'cover.image'=> 'Tệp bắt buộc là hình ảnh',
+            'cover.mimes'=> 'Hình ảnh là các tệp loại:jpeg,png,jpg,gif',
+            'cover.max'=> 'Kích thước ảnh không vượt quá 2048 kylobytes',
+        ]);
+
+        $data = $request->except('cover');
+        $data['is_active'] = ($request->is_active == 'on') ? 1 : 0;
+
+        if ($request->hasFile('cover')) {
+            $data['cover'] = Storage::put(self::PATH_UPLOAD, $request->file('cover'));
         }
-        Catelogue::query()->create($data);
-        return redirect()->route('admin.catelogues.index');
+
+        $res = Catelogue::query()->create($data);
+
+        if ($res) {
+            return view('admin.catelogues.create', compact('errors'))->with('success', 'Thêm danh mục thành công'); // Added success message
+        } else {
+            return view('admin.catelogues.create', compact('errors'))->with('error', 'Sản phẩm không thêm thành công'); // Added error message
+        }
     }
+    
 
     /**
      * Display the specified resource.
@@ -81,11 +97,17 @@ class CatelogueController extends Controller
             $data['cover']=Storage::put(self::PATH_UPLOAD,$request->file('cover'));
         }
         $currentCover=$model->cover;
-        $model->update($data);
+        $check=$model->update($data);
         if($currentCover&&$request->hasFile('cover')&&Storage::exists($currentCover)){
             Storage::delete($currentCover);
         }
-        return redirect()->back();
+        if($check){
+        $data=Catelogue::query()
+        ->latest('id')
+        ->paginate(5);
+        // dd($data);
+        return view(self::PATH_VIEW.'index',compact('data'));
+        }
     }
 
     /**

@@ -24,16 +24,25 @@
             </div>
             @endif --}}
     </div>
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
 
+
+    @if ($errors->any())
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header align-items-center d-flex">
+                    <div class="alert alert-danger" style="width: 100%;">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
     <div class="card-body">
         <form id="productForm" action="{{route('admin.products.store')}}" method="post" enctype="multipart/form-data">
             @csrf
@@ -49,7 +58,7 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="form-label">Catelogue</label>
-                        <select class="form-select mb-3" aria-label="Default select example" name="catelogue">
+                        <select class="form-select mb-3" aria-label="Default select example" name="catelogue_id">
                             @foreach ($catelogues as $catelogue)
                                 <option value="2">{{$catelogue->name}}</option>
                             @endforeach
@@ -69,8 +78,8 @@
                         <input type="text" name="price_sale" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="" class="form-label">Image</label>
-                        <input type="file" name="cover" class="form-control">
+                        <label for="" class="form-label">Image thumbnail</label>
+                        <input type="file" name="img_thumbnail" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -101,12 +110,12 @@
                         </div>
                     </div>
                     <div class="form-floating mt-2">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 200px"></textarea>
+                        <textarea name="description" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 200px"></textarea>
                         <label for="floatingTextarea2">Description</label>
                     </div>
 
                     <div class="card mt-3">
-                        <textarea name="text" class="ckeditor-classic"></textarea>
+                        <textarea name="content" class="ckeditor-classic"></textarea>
                     </div>
                 </div>
                 <div id="variants">
