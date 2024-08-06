@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CatelogueController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\CouponController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->as('admin.')->group(function(){
@@ -23,4 +24,5 @@ Route::prefix('admin')->as('admin.')->group(function(){
         Route::get('{id}/restore',[CatelogueController::class,'restore'])->name('restore');
     });
     Route::resource('products',ProductController::class);
+    Route::resource('coupons',CouponController::class);
 });

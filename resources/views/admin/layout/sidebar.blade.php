@@ -88,23 +88,36 @@
 
                 <li class="nav-item">
                     <a href="#sidebarUser" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarUser" data-key="t-user">
+                        <i class="lab la-quinscape"></i><span data-key="t-user">Coupons</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarUser">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{route('admin.coupons.index')}}" class="nav-link" data-key="t-catelogue"> List Coupons</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('admin.coupons.create')}}" class="nav-link" data-key="t-catelogue"> Add Coupons </a>
+                            </li>
+                        </ul>
+                    </div>
+                        
+                </li> 
+                <li class="nav-item">
+                    <a href="#sidebarUser" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarUser" data-key="t-user">
                         <i class="lab la-quinscape"></i><span data-key="t-user">Users</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarUser">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('admin.catelogues.index')}}" class="nav-link" data-key="t-catelogue"> List Catelogues</a>
+                                <a href="{{route('admin.coupons.index')}}" class="nav-link" data-key="t-catelogue"> List User</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('admin.catelogues.create')}}" class="nav-link" data-key="t-catelogue"> Add Catelogue </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('admin.catelogues.trash')}}" class="nav-link" data-key="t-catelogue">List Soft Delete Catelogues</a>
+                                <a href="{{route('admin.coupons.create')}}" class="nav-link" data-key="t-catelogue"> Add Users </a>
                             </li>
                         </ul>
                     </div>
                         
-                </li> <!-- end Dashboard Menu -->
+                </li> 
             </ul>
         </div>
         <!-- Sidebar -->

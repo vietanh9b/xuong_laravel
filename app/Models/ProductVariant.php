@@ -16,6 +16,11 @@ class ProductVariant extends Model
         'image'
     ];
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
     public function color()
     {
         return $this->belongsTo(ProductColor::class, 'product_color_id');

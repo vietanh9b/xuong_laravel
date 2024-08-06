@@ -10,6 +10,6 @@ Route::prefix('client')->as('client.')->group(function(){
     Route::get('/',[ClientProductController::class,'index']);
     Route::get('shop',[ClientProductController::class,'shop'])->name('shop');
     Route::get('detail/{id}',[ClientProductController::class,'detail'])->name('detail');
-    Route::post('cart/add',[ClientProductController::class,'addToCart'])->middleware('admin','auth')->name('cart.add');
-    Route::get('cart/show',[ClientProductController::class,'show'])->name('cart.show');
+    Route::post('cart/add',[ClientProductController::class,'addToCart'])->name('cart.add');
+    Route::get('cart/show/{id}',[ClientProductController::class,'showCart'])->name('cart.show');
 });

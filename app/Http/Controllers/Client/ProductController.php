@@ -32,9 +32,9 @@ class ProductController extends Controller
     }
     public function addToCart(Request $request)
     {
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('message', 'Please login to add products to your cart.');
-        }
+        // if (!Auth::check()) {
+        //     return redirect()->route('login')->with('message', 'Please login to add products to your cart.');
+        // }
     
         $userId = Auth::id();
         // $productVariantId = $request->input('product_variant_id');
@@ -64,6 +64,24 @@ class ProductController extends Controller
                 'quantity' => $quantity,
             ]);
         }
-        return redirect()->route('client.cart.show')->with('success', 'Product added to cart successfully!');
+        return redirect()->route('client.cart.show',$userId)->with('success', 'Product added to cart successfully!');
     }
+    public function showCart(string $id)
+    {
+    $catelogues = Catelogue::query()->get();
+    $cart = Cart::where('user_id', $id)
+        // ->with('items.product') // Tải quan hệ items và product
+        ->first(); // Lấy kết quả đầu tiên
+        // dd($cart[0]->product);
+    if (!$cart) {
+        echo 'not found';
+        // return redirect()->route('home')->with('error', 'Cart not found.');
+    }
+    
+    // Debug để kiểm tra dữ liệu
+    // dd($cart);
+    
+    return view('client.cart', compact('catelogues', 'cart'));
+}
+
 }

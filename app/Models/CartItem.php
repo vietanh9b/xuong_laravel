@@ -19,7 +19,11 @@ class CartItem extends Model
     }
 
     public function productVariant()
-    {
-        return $this->belongsTo(ProductVariant::class);
-    }
+{
+    return $this->belongsTo(ProductVariant::class, 'product_variant_id');
+}
+    // public function product()
+    // {
+    //     return $this->productVariant->product; // Giả sử có mối quan hệ từ ProductVariant đến Product
+    // }
 }

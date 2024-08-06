@@ -46,5 +46,21 @@ class Order extends Model
         'status_order',
         'status_payment',
         'total_price',
+        'coupon_id'
     ];
+
+    public function getTotalAmountAfterCoupon()
+    {
+        $total = $this->total_amount;
+
+        if ($this->discount && $this->discount->isValid()) {
+            if ($this->discount->type == 'percent') {
+                $total -= $total * ($this->discount->amount / 100);
+            } elseif ($this->discount->type == 'fixed') {
+                $total -= $this->discount->amount;
+            }
+        }
+
+        return max($total, 0); // Đảm bảo giá không âm
+    }
 }
