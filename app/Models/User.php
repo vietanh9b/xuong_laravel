@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -17,6 +18,24 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+     public function role(): BelongsTo
+     {
+         return $this->belongsTo(Role::class);
+     }
+ 
+    //  public function isAdmin(): bool
+    //  {
+    //      // Giả sử role 'admin' có ID là 1
+    //      return $this->role_id === 1;
+    //      // Hoặc kiểm tra theo tên vai trò:
+    //      // return $this->role->name === 'admin';
+    //  }
+     public function isAdmin(): bool
+     {
+         return $this->role->name === 'admin';
+     }
+
     protected $fillable = [
         'name',
         'email',
