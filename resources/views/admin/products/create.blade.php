@@ -60,7 +60,7 @@
                         <label for="" class="form-label">Catelogue</label>
                         <select class="form-select mb-3" aria-label="Default select example" name="catelogue_id">
                             @foreach ($catelogues as $catelogue)
-                                <option value="2">{{$catelogue->name}}</option>
+                                <option value="{{$catelogue->id}}">{{$catelogue->name}}</option>
                             @endforeach
                             {{-- <option selected value="1">One</option>
                             <option value="2">Two</option>  

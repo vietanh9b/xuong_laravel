@@ -70,7 +70,7 @@ section
                     <td>{{substr($item->name,0,16)}}</td>
                     <td>{{$item->Catelogue->name}}</td>
                     <td>
-                        <img src="{{$item->img_thumbnail}}" alt="" width="100px">
+                        <img src="{{asset(Storage::url($item->img_thumbnail))}}" alt="" width="100px">
                     </td>
                     <td>{{$item->price_regular}}đ</td>
                     <td>{{$item->price_sale}}đ</td>
@@ -96,11 +96,11 @@ section
                     </td>
                     
                     <td class="w-100">
-                        <button class="btn btn-info inline-block"><a class=" text-light" href="{{route('admin.catelogues.edit',$item->id)}}">Edit</a></button>
-                        <form action="{{route('admin.catelogues.destroy',$item->id)}}" method="POST" class="inline-block">
+                        <button class="btn btn-info inline-block"><a class=" text-light" href="{{route('admin.products.edit',$item->id)}}">Edit</a></button>
+                        <form action="{{route('admin.products.destroy',$item->id)}}" method="POST" class="inline-block">
                             @csrf
                             @method('delete')
-                            <button class="btn btn-danger inline-block text-light">Delete</button>
+                            <button class="btn btn-danger inline-block text-light" onclick="return confirm('Bạn có muốn xóa không?')">Delete</button>
                         </form>
                         <button class="btn btn-success inline-block"><a class=" text-light" href="{{route('admin.catelogues.show',$item->id)}}">Show</a></button>
                     </td>

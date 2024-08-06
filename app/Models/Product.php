@@ -8,6 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Thiết lập cascade delete
+        static::deleting(function ($product) {
+            $product->variants()->delete();
+        });
+    }
+    
     protected $fillable=[
         'catelogue_id',
         'name',
@@ -36,5 +46,9 @@ class Product extends Model
     ];
     public function catelogue(){
         return $this->belongsTo(Catelogue::class);
+    }
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
     }
 }
